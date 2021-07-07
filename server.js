@@ -75,7 +75,7 @@ function getNewWeather(req, res) {
 class Weather {
     constructor(value){
         this.description=value.weather.description
-        this.date=value.date
+        this.date=value.valid_date
     }
 }
 // https://api.themoviedb.org/3/search/movie?api_key={API_Key}&query={cityName}
