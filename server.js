@@ -13,8 +13,8 @@ const PORT = process.env.PORT;
 server.use(cors());
 
 
-const weatherArr = require('./data/weather.json');
-const { request, response } = require('express');
+// const weatherArr = require('./data/weather.json');
+// const { request, response } = require('express');
 
 server.get('/test', (req, res) => {
     res.status(200).send('my string')
@@ -47,11 +47,11 @@ server.get('/test', (req, res) => {
 //     }
 // }
 
-server.get('/weather', getWeather);
+server.get('/weather', getNewWeather);
 
 // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
 
-function getWeather(req, res) {
+function getNewWeather(req, res) {
     console.log("test")
     const aQuery = req.query.cityName;
     let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${aQuery}&key=${process.env.WEATHER_KEY}`
@@ -75,12 +75,12 @@ function getWeather(req, res) {
 class Weather {
     constructor(value){
         this.description=value.weather.description
-        this.date=value.date
+        this.date=value.valid_date
     }
 }
 // https://api.themoviedb.org/3/search/movie?api_key={API_Key}&query={cityName}
 
-server.get('/moveis', getMovie)
+server.get('/movie', getMovie)
 function getMovie(request, respons) {
     const cQuery = request.query.cityName;
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cQuery}`
