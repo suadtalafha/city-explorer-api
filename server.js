@@ -12,6 +12,9 @@ const PORT = process.env.PORT;
 
 server.use(cors());
 
+const getNewWeather=require('./modules/weather');
+const getMovie=require('./modules/movie')
+
 
 // const weatherArr = require('./data/weather.json');
 // const { request, response } = require('express');
@@ -51,63 +54,63 @@ server.get('/weather', getNewWeather);
 
 // https://api.weatherbit.io/v2.0/forecast/daily?city=Raleigh,NC&key=API_KEY
 
-function getNewWeather(req, res) {
-    console.log("test")
-    const aQuery = req.query.cityName;
-    let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${aQuery}&key=${process.env.WEATHER_KEY}`
+// function getNewWeather(req, res) {
+//     console.log("test")
+//     const aQuery = req.query.cityName;
+//     let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${aQuery}&key=${process.env.WEATHER_KEY}`
 
 
    
-    axios.get(url).then(weatherData => {
-        console.log(weatherData)
-        res.send(weatherData.data.data.map(value => {
-            return new Weather(value)
+//     axios.get(url).then(weatherData => {
+//         console.log(weatherData)
+//         res.send(weatherData.data.data.map(value => {
+//             return new Weather(value)
 
-        }))
-     })
+//         }))
+//      })
         
-       .catch(error => {
-            res.status(500).send(error)
-        })
+//        .catch(error => {
+//             res.status(500).send(error)
+//         })
 
-};
+// };
 
-class Weather {
-    constructor(value){
-        this.description=value.weather.description
-        this.date=value.valid_date
-    }
-}
+// class Weather {
+//     constructor(value){
+//         this.description=value.weather.description
+//         this.date=value.valid_date
+//     }
+// }
 // https://api.themoviedb.org/3/search/movie?api_key={API_Key}&query={cityName}
 
 server.get('/movie', getMovie)
-function getMovie(request, respons) {
-    const cQuery = request.query.cityName;
-    let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cQuery}`
+// function getMovie(request, respons) {
+//     const cQuery = request.query.cityName;
+//     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cQuery}`
 
-    axios.get(url)
+//     axios.get(url)
        
-        .then(moveiData => {
-            respons.status(200).send(moveiData.data.results.map(val => {
-                return new Movei(val)
-            }))
-        }).catch(error=>{
-            res.status(500).send(error)
-        })
+//         .then(moveiData => {
+//             respons.status(200).send(moveiData.data.results.map(val => {
+//                 return new Movei(val)
+//             }))
+//         }).catch(error=>{
+//             res.status(500).send(error)
+//         })
 
-}
+// }
 
-class Movei{
-    constructor(val){
-    this.title=val.title;
-    this.overview=val.overview;
-    this.average_votes=val.average_votes;
-    this.total_votes=val.total_votes;
-    this.popularity=val.popularity;
-    this.image_url=`https://image.tmdb.org/t/p/w500/${val.poster_path}`
-    this.released_on=val.released_on;
-    }
-}
+// class Movei{
+//     constructor(val){
+//     this.title=val.title;
+//     this.overview=val.overview;
+//     this.average_votes=val.average_votes;
+//     this.total_votes=val.total_votes;
+//     this.popularity=val.popularity;
+//     this.image_url=`https://image.tmdb.org/t/p/w500/${val.poster_path}`
+//     this.released_on=val.released_on;
+//     }
+// }
 
 
 

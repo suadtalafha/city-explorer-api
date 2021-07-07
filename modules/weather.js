@@ -2,7 +2,6 @@
 
 const axios=require('axios');
 
-
 function getNewWeather(req, res) {
     console.log("test")
     const aQuery = req.query.cityName;
@@ -23,10 +22,11 @@ function getNewWeather(req, res) {
         })
 
 };
+
 class Weather {
     constructor(value){
         this.description=value.weather.description
-        this.date=value.date
+        this.date=value.valid_date
     }
 }
 

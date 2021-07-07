@@ -1,6 +1,5 @@
 'use strict';
 const axios=require('axios');
-
 function getMovie(request, respons) {
     const cQuery = request.query.cityName;
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cQuery}`
@@ -28,5 +27,4 @@ class Movei{
     this.released_on=val.released_on;
     }
 };
-
 module.exports=getMovie
